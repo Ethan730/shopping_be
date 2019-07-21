@@ -22,7 +22,7 @@
     select 
     <include refid="Base_Column_List" />
     from user
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER} and status = 1
   </select>
     <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
       select
@@ -30,19 +30,21 @@
       from user
       where username = #{username,jdbcType=VARCHAR} and status = 1
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where status = 1
+  </select>
   <insert id="insert" parameterType="com.ethan.shopping.model.User">
-    insert into user (id, username, password, 
+    insert into user (username, password,
       email, mobile, question, 
       answer, role, status, 
       create_time, modify_time)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{question,jdbcType=VARCHAR}, 
-      #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+      #{answer,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 1,
+      now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.ethan.shopping.model.User">
     insert into user
@@ -144,12 +146,7 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyTime != null">
-        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
+        modify_time = now(),
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -163,8 +160,7 @@
       answer = #{answer,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      modify_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
