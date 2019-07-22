@@ -17,4 +17,7 @@ public interface UserService {
     Result deleteUser(Integer id);
 
     Result<List<User>> listAllUser();
+
+    //更新用户信息
+    Result editUser(User user);
 }

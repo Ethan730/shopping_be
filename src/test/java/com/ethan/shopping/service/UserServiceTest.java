@@ -54,4 +54,13 @@ public class UserServiceTest {
             System.out.println(user);
         }
     }
+
+    @Test
+    public void editUser(){
+        User user = userService.findByUsername("root").getData();
+        User newUser = new User();
+        newUser.setId(user.getId());
+        newUser.setEmail("new@qq.com");
+        assert userService.editUser(newUser).isSuccess();
+    }
 }

@@ -41,7 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     public Result deleteUser(Integer id) {
-        int cnt = userMapper.deleteByPrimaryKey(id);
+        User user = userMapper.selectByPrimaryKey(id);
+        if(user == null){
+            return Result.fail("删除用户失败，用户不存在");
+        }
+        user.setStatus(0);
+        int cnt = userMapper.updateByPrimaryKeySelective(user);
         if (cnt == 1)
             return Result.success();
         else
@@ -54,5 +59,14 @@ public class UserServiceImpl implements UserService {
             return Result.fail("查询用户错误");
         }
         return Result.success(users);
+    }
+
+    public Result editUser(User user){
+        int cnt = userMapper.updateByPrimaryKeySelective(user);
+        if(cnt == 1){
+            return Result.success();
+        }else{
+            return Result.fail("更新用户信息失败");
+        }
     }
 }

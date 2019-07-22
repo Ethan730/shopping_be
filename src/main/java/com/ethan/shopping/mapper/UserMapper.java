@@ -7,8 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
-
     int insert(User record);
 
     @Deprecated
@@ -18,6 +16,7 @@ public interface UserMapper {
 
     int updateByPrimaryKeySelective(User record);
 
+    @Deprecated
     int updateByPrimaryKey(User record);
 
     User selectByUsername(String username);
