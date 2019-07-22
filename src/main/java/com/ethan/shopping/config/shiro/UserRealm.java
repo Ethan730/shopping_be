@@ -26,7 +26,7 @@ public class UserRealm extends AuthorizingRealm {
             return null;
         }
         User user = res.getData();
-        return new SimpleAuthenticationInfo("", user.getPassword(), "");
+        return new SimpleAuthenticationInfo(user, user.getPassword(), "");
     }
 
     /**
