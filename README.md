@@ -9,3 +9,6 @@
 - 整合了shiro实现登录
 - 使用mybatis generator生成了基础的mapper文件
 - 完成了一些util，包括密码MD5加密，返回类型Result的编写
+
+### 2019-07-22
+- 添加获取登录用户的util by wyx
