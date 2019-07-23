@@ -1,6 +1,8 @@
 package com.ethan.shopping.controller;
 
 import com.ethan.shopping.dto.LoginForm;
+import com.ethan.shopping.model.User;
+import com.ethan.shopping.utils.CurrentUserUtil;
 import com.ethan.shopping.utils.PasswordUtil;
 import com.ethan.shopping.utils.Result;
 import org.apache.shiro.SecurityUtils;
@@ -21,8 +23,8 @@ import javax.validation.Valid;
 public class AuthController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     @ResponseBody
-    public String index() {
-        return "index";
+    public User index() {
+        return CurrentUserUtil.getCurrentUser();
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

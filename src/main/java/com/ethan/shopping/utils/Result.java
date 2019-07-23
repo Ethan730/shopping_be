@@ -48,6 +48,10 @@ public class Result<T> {
         return Result.fail(sb.toString());
     }
 
+    public static Result fail(MyException e){
+        return Result.fail(e.getMessage());
+    }
+
     public boolean isSuccess() {
         return success;
     }

@@ -6,10 +6,11 @@
 ### 2019-07-21
 
 完成了基本框架的搭建：
-- 整合了shiro实现登录 by wyx
-- 使用mybatis generator生成了基础的mapper文件 by wyx
-- 完成了一些util，包括密码MD5加密，返回类型Result的编写 by wyx
+- 整合了shiro实现登录
+- 使用mybatis generator生成了基础的mapper文件
+- 完成了一些util，包括密码MD5加密，返回类型Result的编写
 
 ### 2019-07-22
 
 - 用户部分service层进行了一些修改，增加了更新的实现
+- 添加获取登录用户的util
