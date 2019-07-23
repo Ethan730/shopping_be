@@ -5,6 +5,7 @@ import com.ethan.shopping.model.User;
 import com.ethan.shopping.utils.CurrentUserUtil;
 import com.ethan.shopping.utils.PasswordUtil;
 import com.ethan.shopping.utils.Result;
+import lombok.extern.log4j.Log4j2;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.text.MessageFormat;
 
+@Log4j2
 @Controller
 public class AuthController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -39,13 +42,16 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return Result.fail(bindingResult);
         }
+        log.info("用户登录");
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(form.getUsername(), PasswordUtil.MD5(form.getPassword()));
         try {
             subject.login(token);
         } catch (UnknownAccountException e) {
+            log.warn(MessageFormat.format("用户名 {0} 错误", form.getUsername()));
             return Result.fail("用户名错误");
         } catch (IncorrectCredentialsException e){
+            log.warn(MessageFormat.format("用户 {0} 密码错误", form.getUsername()));
             return Result.fail("密码错误");
         }
         return Result.success();
