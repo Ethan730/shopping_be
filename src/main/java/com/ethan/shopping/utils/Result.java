@@ -48,7 +48,7 @@ public class Result<T> {
         return Result.fail(sb.toString());
     }
 
-    public static Result fail(MyException e){
+    public static Result fail(Exception e){
         return Result.fail(e.getMessage());
     }
 
