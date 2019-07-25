@@ -1,4 +1,5 @@
-drop database shopping;
+-- drop database shopping;
+set names utf8mb4;
 create database if not exists shopping default charset utf8 collate utf8_general_ci;
 use shopping;
 # 用户表
