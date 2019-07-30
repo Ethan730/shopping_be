@@ -30,15 +30,15 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ethan.shopping.model.Address">
-    insert into address (id, user_id, receiver_name, 
+    insert into address ( user_id, receiver_name,
       receiver_mobile, receiver_province, receiver_city, 
       receiver_district, receiver_address, receiver_zip, 
       status, create_time, modify_time
       )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{receiverName,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=INTEGER}, #{receiverName,jdbcType=VARCHAR},
       #{receiverMobile,jdbcType=VARCHAR}, #{receiverProvince,jdbcType=VARCHAR}, #{receiverCity,jdbcType=VARCHAR}, 
       #{receiverDistrict,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{receiverZip,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      #{status,jdbcType=INTEGER}, now(), now()
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ethan.shopping.model.Address">
