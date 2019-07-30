@@ -1,4 +1,4 @@
-package com.ethan.shopping.dto;
+package com.ethan.shopping.dto.address;
 
 import lombok.Data;
 

@@ -9,7 +9,7 @@ public interface AddressService {
 
 
 
-       // Result deleteCart(Integer listId);
+        Result deleteAddress(Integer Id);
 
        // Result list();
 
