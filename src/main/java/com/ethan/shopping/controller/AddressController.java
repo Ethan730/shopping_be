@@ -3,6 +3,7 @@ package com.ethan.shopping.controller;
 
 import com.ethan.shopping.dto.address.AddAddressForm;
 import com.ethan.shopping.dto.address.DeleteAddressForm;
+import com.ethan.shopping.dto.address.UpdateAddressForm;
 import com.ethan.shopping.service.AddressService;
 import com.ethan.shopping.utils.Result;
 import lombok.extern.log4j.Log4j2;
@@ -54,5 +55,20 @@ public class AddressController {
             log.error(e);
             return Result.fail(e.getMessage());
         }
+    }
+
+    @PostMapping(value = "/update")
+    Result deleteAddress(@RequestBody @Valid UpdateAddressForm form, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return Result.fail(bindingResult);
+        }
+        try {
+            addressService.updateAddress(form.getId(),form.getReceiverName(),form.getReceiverMobile(),
+                    form.getReceiverProvince(),form.getReceiverCity(),form.getReceiverDistrict(),form.getReceiverAddress(),form.getReceiverZip());
+        } catch (Exception e) {
+            log.error(e);
+            return Result.fail(e.getMessage());
+        }
+        return Result.success();
     }
 }

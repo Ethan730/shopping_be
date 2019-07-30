@@ -67,8 +67,8 @@ public class AddressServiceImpl implements  AddressService{
         address.setStatus(0);
         int res=addressMapper.updateByPrimaryKeySelective(address);
         if (res != 1) {
-            log.error("更新地址错误");
-            throw new MyException("更新地址错误");
+            log.error("删除地址错误");
+            throw new MyException("删除地址错误");
         }
         return Result.success();
     }
@@ -82,5 +82,33 @@ public class AddressServiceImpl implements  AddressService{
         }
         return Result.success(address);
 
+    }
+
+    public Result updateAddress(Integer id,String receiverName, String receiverMobile, String receiverProvince,
+                         String receiverCity, String receiverDistrict, String receiverAddress, String receiverZip){
+        log.info("updateAddressImpl");
+        Integer userId = CurrentUserUtil.getCurrentUser().getId();
+        Address address=addressMapper.selectByPrimaryKey(id);
+        if(address.getUserId()!=userId){
+            log.error(MessageFormat.format("用户试图更新非自己的地址",  CurrentUserUtil.getCurrentUser().getId()));
+            throw new MyException("用户地址Id错误");
+        }
+        if(address.getStatus()!=1){
+            log.error(MessageFormat.format("用户试图更新已删除地址",  CurrentUserUtil.getCurrentUser().getId()));
+            throw new MyException("用户地址已删除");
+        }
+        address.setReceiverName(receiverName);
+        address.setReceiverMobile(receiverMobile);
+        address.setReceiverProvince(receiverProvince);
+        address.setReceiverCity(receiverCity);
+        address.setReceiverDistrict(receiverDistrict);
+        address.setReceiverAddress(receiverAddress);
+        address.setReceiverZip(receiverZip);
+        int res=addressMapper.updateByPrimaryKeySelective(address);
+        if (res != 1) {
+            log.error("更新地址错误");
+            throw new MyException("更新地址错误");
+        }
+        return Result.success();
     }
 }

@@ -14,4 +14,7 @@ public interface AddressService {
         Result list ();
 
 
+        Result updateAddress(Integer id,String receiverName, String receiverMobile, String receiverProvince,
+                          String receiverCity, String receiverDistrict, String receiverAddress, String receiverZip);
+
 }
