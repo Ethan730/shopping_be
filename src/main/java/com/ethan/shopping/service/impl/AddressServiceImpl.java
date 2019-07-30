@@ -58,6 +58,10 @@ public class AddressServiceImpl implements  AddressService{
             log.error(MessageFormat.format("删除地址错误：cart user id: {}, current user id{}", address.getUserId(), CurrentUserUtil.getCurrentUser().getId()));
             throw new MyException("删除地址错误当前用户与删除订单ID不匹配");
         }
+        if(address.getStatus()!=1){
+            log.error(MessageFormat.format("删除地址错误：订单已经被删除",Id));
+            return Result.success();
+        }
         address.setStatus(0);
         int res=addressMapper.updateByPrimaryKeySelective(address);
         if (res != 1) {
