@@ -28,7 +28,7 @@ public class ShiroConfig {
         //        filterMap.put("/index", "anon");
         // 授予了test权限的才能访问index
 //        filterMap.put("/index", "perms[test]");
-        filterMap.put("/*", "authc");
+        filterMap.put("/**", "authc");
         // 未登录自动重定向到这个页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 没有权限的页面
