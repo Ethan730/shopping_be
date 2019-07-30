@@ -11,7 +11,7 @@ public interface AddressService {
 
         Result deleteAddress(Integer Id);
 
-       // Result list();
+        Result list ();
 
 
 }

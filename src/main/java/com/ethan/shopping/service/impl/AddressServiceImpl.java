@@ -10,8 +10,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -69,5 +71,16 @@ public class AddressServiceImpl implements  AddressService{
             throw new MyException("更新地址错误");
         }
         return Result.success();
+    }
+    public Result list(){
+        log.info("listAddressImpl");
+        int userId=CurrentUserUtil.getCurrentUser().getId();
+        List<Address> address=addressMapper.selectByUserId(userId);
+        if (address== null){
+            log.error(MessageFormat.format("该用户没有地址",  CurrentUserUtil.getCurrentUser().getId()));
+            throw new MyException("当前用户没有地址");
+        }
+        return Result.success(address);
+
     }
 }
