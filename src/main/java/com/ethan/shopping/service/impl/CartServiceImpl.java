@@ -43,8 +43,11 @@ public class CartServiceImpl implements CartService {
                 throw new MyException("加入购物车异常");
             }
         } else {
-            cart.setQuantity(cart.getQuantity() + quantity);
-            int res = cartMapper.updateByPrimaryKeySelective(cart);
+
+            Cart tmp = new Cart();
+            tmp.setId(cart.getId());
+            tmp.setQuantity(cart.getQuantity() + quantity);
+            int res = cartMapper.updateByPrimaryKeySelective(tmp);
             if (res != 1) {
                 log.error(MessageFormat.format("加入购物车异常：{}", cart));
                 throw new MyException("加入购物车异常");
@@ -59,12 +62,14 @@ public class CartServiceImpl implements CartService {
             log.error(MessageFormat.format("更新购物车状态错误：不存在id {}", id));
             throw new MyException("购物车id错误");
         }
-        if (cart.getUserId() != CurrentUserUtil.getCurrentUser().getId()) {
-            log.error(MessageFormat.format("更新购物车状态错误：cart user id: {}, current user id{}", cart.getUserId(), CurrentUserUtil.getCurrentUser().getId()));
+        if (!cart.getUserId().equals(CurrentUserUtil.getCurrentUser().getId())) {
+            log.error(MessageFormat.format("更新购物车状态错误：cart user id: {0, number}, current user id: {1, number}", cart.getUserId(), CurrentUserUtil.getCurrentUser().getId()));
             throw new MyException("更新购物车错误");
         }
-        cart.setChecked(checked);
-        int res = cartMapper.updateByPrimaryKeySelective(cart);
+        Cart tmp = new Cart();
+        tmp.setId(cart.getId());
+        tmp.setChecked(checked);
+        int res = cartMapper.updateByPrimaryKeySelective(tmp);
         if (res != 1) {
             log.error("更新购物车状态错误");
             throw new MyException("更新购物车错误");
@@ -82,8 +87,10 @@ public class CartServiceImpl implements CartService {
             log.error(MessageFormat.format("更新购物车状态错误：cart user id: {}, current user id{}", cart.getUserId(), CurrentUserUtil.getCurrentUser().getId()));
             throw new MyException("删除购物车错误");
         }
-        cart.setStatus(0);
-        int res = cartMapper.updateByPrimaryKeySelective(cart);
+        Cart tmp = new Cart();
+        tmp.setId(cart.getId());
+        tmp.setStatus(0);
+        int res = cartMapper.updateByPrimaryKeySelective(tmp);
         if (res != 1) {
             log.error("删除购物车错误");
             throw new MyException("删除购物车错误");
