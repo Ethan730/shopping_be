@@ -33,6 +33,7 @@
 ---
 记录：如果返回类型为list的话，mapper里使用resultType好像会有问题，使用resultMap要注意引用的是最上面声明的resultMap
 
+
 ### 2019-07-21
 
 - 完成用户和购物车模块（购物车还缺少product的校验）

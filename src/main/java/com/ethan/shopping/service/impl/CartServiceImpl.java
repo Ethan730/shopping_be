@@ -43,6 +43,7 @@ public class CartServiceImpl implements CartService {
                 throw new MyException("加入购物车异常");
             }
         } else {
+
             Cart tmp = new Cart();
             tmp.setId(cart.getId());
             tmp.setQuantity(cart.getQuantity() + quantity);
@@ -99,6 +100,9 @@ public class CartServiceImpl implements CartService {
 
     public Result list() {
         List<Cart> carts = cartMapper.selectByUserId(CurrentUserUtil.getCurrentUser().getId());
+        for(Cart cart:carts){
+            System.out.println(cart);
+        }
         if (carts == null) {
             log.error("查询购物车错误");
             throw new MyException("查询购物车错误");

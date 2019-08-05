@@ -2,6 +2,7 @@ package com.ethan.shopping.dto.cart;
 
 import lombok.Data;
 
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
